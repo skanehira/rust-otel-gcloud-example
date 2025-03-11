@@ -1,0 +1,15 @@
+[package]
+name = "rust-otel-gcloud-example"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+tokio = { version = "1.44.0", features = ["macros", "rt-multi-thread"] }
+opentelemetry = "0.28.0"
+opentelemetry-jaeger = "0.22.0"
+opentelemetry_sdk = { version = "0.28.0" }
+opentelemetry-otlp = { version = "0.28.0", features = ["grpc-tonic"] }
+tracing = "0.1.40"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter", "json"] }
+tracing-opentelemetry = "0.29.0"
+opentelemetry-gcloud-trace = "0.18.0"
