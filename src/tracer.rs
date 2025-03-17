@@ -2,7 +2,7 @@ use crate::exporter_type::{ExporterType, determine_exporter_type};
 use opentelemetry::trace::TracerProvider as _;
 use opentelemetry_gcloud_trace::GcpCloudTraceExporterBuilder;
 use opentelemetry_otlp::WithExportConfig;
-use opentelemetry_sdk::trace::RandomIdGenerator;
+use opentelemetry_sdk::{Resource, trace::RandomIdGenerator};
 use std::time::Duration;
 
 pub async fn init() -> Result<
@@ -42,6 +42,11 @@ pub async fn init() -> Result<
 
             let provider = opentelemetry_sdk::trace::SdkTracerProvider::builder()
                 .with_batch_exporter(otlp_exporter)
+                .with_resource(
+                    Resource::builder()
+                        .with_service_name("rust-otel-gcloud-example")
+                        .build(),
+                )
                 .with_id_generator(RandomIdGenerator::default())
                 .build();
             let tracer = provider.tracer("rust-otel-gcloud-example");
